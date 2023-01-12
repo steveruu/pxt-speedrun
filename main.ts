@@ -38,7 +38,7 @@ radio.onReceivedNumber(function (receivedNumber: number) {
         if (name == "grp" && value == 42) {
             radio.sendValue("code", 18);
             // music.playTone(Note.G4, music.beat(BeatFraction.Quarter));
-            radio.setGroup(value)
+            // radio.setGroup(value)
             radio.sendValue("code", 18);
         }
 
@@ -50,12 +50,15 @@ radio.onReceivedNumber(function (receivedNumber: number) {
     const serialRemote = radio.receivedPacket(RadioPacketProperty.SerialNumber);
     console.logValue(serialRemote + ": ", receivedNumber);
 
-
 function groupIncr() {
     if (input.buttonIsPressed(Button.A)) {
         groupNum += 1;
+        basic.showNumber(groupNum);
+        radio.setGroup(groupNum);
     } else if (input.buttonIsPressed(Button.B)) {
         groupNum -= 1;
+        basic.showNumber(groupNum);
+        radio.setGroup(groupNum);
     }
 }
 })
