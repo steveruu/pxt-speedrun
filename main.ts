@@ -5,6 +5,8 @@ let groupNum = 1;
 radio.setGroup(groupNum); //0->255
 radio.setTransmitSerialNumber(true);
 
+const mySerialNumber = control.deviceSerialNumber();
+const myEncodedSerialNumber = Utility.encodeSerial();
 
 basic.forever(function () {
     if (input.buttonIsPressed(Button.A)) {
@@ -14,12 +16,12 @@ basic.forever(function () {
 
 radio.onReceivedNumber(function (receivedNumber: number) {
     if (receivedNumber == 0) {
-        music.playTone(Note.C4, music.beat(BeatFraction.Quarter)); 
+        music.playTone(Note.C4, music.beat(BeatFraction.Quarter));
         radio.sendNumber(7);
     }
 
     if (receivedNumber == 1) {
-        music.playTone(Note.G4, music.beat(BeatFraction.Quarter)); 
+        music.playTone(Note.G4, music.beat(BeatFraction.Quarter));
         radio.sendNumber(7);
         radio.sendValue("code", 18);
     }
@@ -34,8 +36,19 @@ radio.onReceivedNumber(function (receivedNumber: number) {
     //     music.playTone(Note.G4, music.beat(BeatFraction.Quarter)); }
 
     radio.onReceivedValue(function (name: string, value: number) {
+        const decodedSerialNumber = Utility.decodeSerial(name); // prijme a dekoduje seriove cislo, pouzito v if() statementu nize
         console.logValue(name, value);
-        if (name == "grp" && value == 42) {
+        
+        if (decodedSerialNumber == mySerialNumber) {
+            /*
+            * new code is in value
+            *
+            */        
+        }
+        
+        if (name == "grp") {
+            // new groupId recieved
+            
             radio.sendValue("code", 18);
             // music.playTone(Note.G4, music.beat(BeatFraction.Quarter));
             // radio.setGroup(value)
@@ -43,22 +56,22 @@ radio.onReceivedNumber(function (receivedNumber: number) {
         }
 
         if (name == "code" && value == value) {
-            
+
         }
     })
 
-    const serialRemote = radio.receivedPacket(RadioPacketProperty.SerialNumber);
+    const serialRemote = radio.receivedPacket(RadioPacketProperty.SerialNumber);    
     console.logValue(serialRemote + ": ", receivedNumber);
 
-function groupIncr() {
-    if (input.buttonIsPressed(Button.A)) {
-        groupNum += 1;
-        basic.showNumber(groupNum);
-        radio.setGroup(groupNum);
-    } else if (input.buttonIsPressed(Button.B)) {
-        groupNum -= 1;
-        basic.showNumber(groupNum);
-        radio.setGroup(groupNum);
+    function groupIncr() {
+        if (input.buttonIsPressed(Button.A)) {
+            groupNum += 1;
+            basic.showNumber(groupNum);
+            radio.setGroup(groupNum);
+        } else if (input.buttonIsPressed(Button.B)) {
+            groupNum -= 1;
+            basic.showNumber(groupNum);
+            radio.setGroup(groupNum);
+        }
     }
-}
 })
