@@ -86,7 +86,7 @@ radio.onReceivedNumber(function (receivedNumber: number) {
 * 
 * let nahodaCeil = Math.ceil(1000 * Math.random()); -- <0; 1000>
 * let nahodaRound = Math.round(1000 * Math.random()); -- <0; 1000>
-* let nahodaFloor = Math.floor(1000 * Math.random()); -- <0; 999>
+* let nahodaFloor = Math.floor(1000 * Math.random()); -- <0; 999> | <0; 1000)
 *
 *
 *
