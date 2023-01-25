@@ -78,3 +78,20 @@ radio.onReceivedNumber(function (receivedNumber: number) {
     console.logValue(serialRemote + ": ", receivedNumber);
 
 })
+
+
+/* kazda:
+* syntakticke chyby predevsim -> tutorialy na yt
+* logika - problemy s generatorem nahodnych cisel - <0;1)
+* 
+* let nahodaCeil = Math.ceil(1000 * Math.random()); -- <0; 1000>
+* let nahodaRound = Math.round(1000 * Math.random()); -- <0; 1000>
+* let nahodaFloor = Math.floor(1000 * Math.random()); -- <0; 999>
+*
+*
+*
+*
+*
+*
+*
+*/
