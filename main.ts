@@ -8,10 +8,24 @@ radio.setTransmitSerialNumber(true);
 const mySerialNumber = control.deviceSerialNumber();
 const myEncodedSerialNumber = Utility.encodeSerial();
 
+function groupIncr() {
+    if (input.buttonIsPressed(Button.A)) {
+        groupNum += 1;
+        basic.showNumber(groupNum);
+        radio.setGroup(groupNum);
+    } else if (input.buttonIsPressed(Button.B)) {
+        groupNum -= 1;
+        basic.showNumber(groupNum);
+        radio.setGroup(groupNum);
+    }
+}
+
 basic.forever(function () {
     if (input.buttonIsPressed(Button.A)) {
         radio.sendNumber(2);
     }
+
+    groupIncr();
 })
 
 radio.onReceivedNumber(function (receivedNumber: number) {
@@ -63,15 +77,4 @@ radio.onReceivedNumber(function (receivedNumber: number) {
     const serialRemote = radio.receivedPacket(RadioPacketProperty.SerialNumber);    
     console.logValue(serialRemote + ": ", receivedNumber);
 
-    function groupIncr() {
-        if (input.buttonIsPressed(Button.A)) {
-            groupNum += 1;
-            basic.showNumber(groupNum);
-            radio.setGroup(groupNum);
-        } else if (input.buttonIsPressed(Button.B)) {
-            groupNum -= 1;
-            basic.showNumber(groupNum);
-            radio.setGroup(groupNum);
-        }
-    }
 })
