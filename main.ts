@@ -95,3 +95,7 @@ radio.onReceivedNumber(function (receivedNumber: number) {
 *
 *
 */
+
+function myRandom(minimum: number, maximum: number): number {
+    return Math.random();
+}
