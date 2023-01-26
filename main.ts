@@ -4,6 +4,7 @@ let codeValue = 12;
 
 let nextCode = 0;
 let nextGroup = 0;
+
 let groupIsTrue = false;
 let codeIsTrue = false;
 
@@ -18,27 +19,22 @@ input.onButtonPressed(Button.A, function () {
     basic.clearScreen();
 })
 
-radio.onReceivedValue(function (key: string, value: number) {
-    if (myEncodedSerial === key) {
+radio.onReceivedValue(function (name: string, value: number) {
+    if (myEncodedSerial === name) {
         nextCode = value;
         groupIsTrue = true;
         basic.showString("C")
-        control.inBackground(function () {
-            music.playTone(Note.C, music.beat(BeatFraction.Whole))
-        })
-        console.log(value);
+        
         basic.clearScreen();
 
     }
-    if (key === "grp") {
+    if (name === "grp") {
         nextGroup = value;
         codeIsTrue = true;
-        //basic.showString("G")
+
         control.inBackground(function () {
             music.playTone(Note.G, music.beat(BeatFraction.Whole));
         })
-        console.log(value);
-
     }
     if (groupIsTrue && codeIsTrue) {
         codeValue = nextCode;
