@@ -1,6 +1,6 @@
 let codeValue = 12;
 let encodedSerial = Utility.encodeSerial();
-let actualGroup = 5;
+let groupValue = 5;
 let nextGroup = 0;
 let nextCode = 0;
 
@@ -10,11 +10,18 @@ let grpBool = false;
 radio.setTransmitPower(7);
 radio.setFrequencyBand(7);
 radio.setTransmitSerialNumber(true);
-radio.setGroup(actualGroup);
+radio.setGroup(groupValue);
 
 input.onButtonPressed(Button.A, function () {
     radio.sendNumber(codeValue);
+    basic.showNumber(codeValue);
     basic.showString("A");
+    basic.clearScreen();
+})
+
+input.onButtonPressed(Button.B, function () {
+    radio.sendNumber(codeValue);
+    basic.showNumber(groupValue);
     basic.clearScreen();
 })
 
@@ -35,7 +42,7 @@ radio.onReceivedValue(function (key: string, value: number) {
     }
     if (codeBool && grpBool) {
         codeValue = nextCode;
-        actualGroup = nextGroup;
+        groupValue = nextGroup;
         basic.showString("D");
         basic.clearScreen();
         codeBool = false;
@@ -47,7 +54,7 @@ radio.onReceivedValue(function (key: string, value: number) {
 input.onButtonPressed(Button.AB, function () {
     codeValue = 12;
     encodedSerial = Utility.encodeSerial();
-    actualGroup = 5;
+    groupValue = 5;
     nextGroup = 0;
     nextCode = 0;
     codeBool = false;
