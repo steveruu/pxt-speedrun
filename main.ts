@@ -13,14 +13,16 @@ radio.setTransmitPower(7);
 radio.setTransmitSerialNumber(true);
 radio.setGroup(groupValue);
 
-input.onButtonPressed(Button.A, function () {
+input.onButtonPressed(Button.A, function () 
+{
     radio.sendNumber(codeValue);
     basic.showString("A");
     basic.clearScreen();
 })
 
 radio.onReceivedValue(function (name: string, value: number) {
-    if (myEncodedSerial === name) {
+    if (myEncodedSerial === name) 
+    {
         nextCode = value;
         groupIsTrue = true;
         basic.showString("C")
@@ -28,15 +30,18 @@ radio.onReceivedValue(function (name: string, value: number) {
         basic.clearScreen();
 
     }
-    if (name === "grp") {
+    if (name === "grp") 
+    {
         nextGroup = value;
         codeIsTrue = true;
 
-        control.inBackground(function () {
+        control.inBackground(function () 
+        {
             music.playTone(Note.G, music.beat(BeatFraction.Whole));
         })
     }
-    if (groupIsTrue && codeIsTrue) {
+    if (groupIsTrue && codeIsTrue) 
+    {
         codeValue = nextCode;
         groupValue = nextGroup;
         basic.showString("D");
@@ -49,17 +54,21 @@ radio.onReceivedValue(function (name: string, value: number) {
 
 })
 
-input.onButtonPressed(Button.B, function () {
+input.onButtonPressed(Button.B, function () 
+{
+    basic.showNumber(groupValue)
     basic.showNumber(codeValue);
 })
 
-input.onButtonPressed(Button.AB, function () {
+input.onButtonPressed(Button.AB, function () 
+{
     codeValue = 12;
     myEncodedSerial = Utility.encodeSerial()
     groupValue = 5;
 
     nextGroup = 0;
     nextCode = 0;
+
     groupIsTrue = false;
     codeIsTrue = false;
 
