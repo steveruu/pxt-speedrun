@@ -1,5 +1,6 @@
 let codeValue = 12;
-let encodedSerial = Utility.encodeSerial();
+let myEncodedSerial = Utility.encodeSerial();
+
 let groupValue = 5;
 let nextGroup = 0;
 let nextCode = 0;
@@ -26,7 +27,7 @@ input.onButtonPressed(Button.B, function () {
 })
 
 radio.onReceivedValue(function (key: string, value: number) {
-    if (encodedSerial === key) {
+    if (myEncodedSerial === key) {
         nextCode = value;
         codeBool = true;
         basic.showString("C");
@@ -53,7 +54,7 @@ radio.onReceivedValue(function (key: string, value: number) {
 
 input.onButtonPressed(Button.AB, function () {
     codeValue = 12;
-    encodedSerial = Utility.encodeSerial();
+    myEncodedSerial = Utility.encodeSerial();
     groupValue = 5;
     nextGroup = 0;
     nextCode = 0;
