@@ -1,13 +1,15 @@
 radio.setFrequencyBand(7);
 radio.setTransmitPower(7);
 
-let groupNum = 1;
-radio.setGroup(groupNum); //0->255
+let groupNum: number;
+
+radio.setGroup(1); //0->255
 radio.setTransmitSerialNumber(true);
 
 const mySerialNumber = control.deviceSerialNumber();
 const myEncodedSerialNumber = Utility.encodeSerial();
 
+groupNum = 1;
 function groupIncr() {
     if (input.buttonIsPressed(Button.A)) {
         groupNum += 1;
@@ -26,6 +28,7 @@ basic.forever(function () {
     }
 
     groupIncr();
+    whaleysans.showNumber(groupNum);
 })
 
 radio.onReceivedNumber(function (receivedNumber: number) {
