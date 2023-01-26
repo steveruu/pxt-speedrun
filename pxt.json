@@ -5,7 +5,8 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "pxt-serialnumber-encoder": "github:TomasKazda/pxt-serialnumber-encoder#1fc3ac59650ea7e79b0b5b50cfc8120908a9c3bf"
+        "pxt-serialnumber-encoder": "github:TomasKazda/pxt-serialnumber-encoder#1fc3ac59650ea7e79b0b5b50cfc8120908a9c3bf",
+        "WhaleySansFont": "github:makecode-extensions/whaleysansfont#v1.1.0"
     },
     "files": [
         "main.blocks",

@@ -11,11 +11,11 @@ const myEncodedSerialNumber = Utility.encodeSerial();
 function groupIncr() {
     if (input.buttonIsPressed(Button.A)) {
         groupNum += 1;
-        basic.showNumber(groupNum);
+        whaleysans.showNumber(groupNum);
         radio.setGroup(groupNum);
     } else if (input.buttonIsPressed(Button.B)) {
         groupNum -= 1;
-        basic.showNumber(groupNum);
+        whaleysans.showNumber(groupNum);
         radio.setGroup(groupNum);
     }
 }
@@ -52,17 +52,18 @@ radio.onReceivedNumber(function (receivedNumber: number) {
     radio.onReceivedValue(function (name: string, value: number) {
         const decodedSerialNumber = Utility.decodeSerial(name); // prijme a dekoduje seriove cislo, pouzito v if() statementu nize
         console.logValue(name, value);
-        
+
         if (decodedSerialNumber == mySerialNumber) {
             /*
             * new code is in value
             *
-            */        
+            */
         }
-        
+
         if (name == "grp") {
             // new groupId recieved
-            
+
+
             radio.sendValue("code", 18);
             // music.playTone(Note.G4, music.beat(BeatFraction.Quarter));
             // radio.setGroup(value)
@@ -74,7 +75,7 @@ radio.onReceivedNumber(function (receivedNumber: number) {
         }
     })
 
-    const serialRemote = radio.receivedPacket(RadioPacketProperty.SerialNumber);    
+    const serialRemote = radio.receivedPacket(RadioPacketProperty.SerialNumber);
     console.logValue(serialRemote + ": ", receivedNumber);
 
 })
@@ -87,12 +88,6 @@ radio.onReceivedNumber(function (receivedNumber: number) {
 * let nahodaCeil = Math.ceil(1000 * Math.random()); -- <0; 1000>
 * let nahodaRound = Math.round(1000 * Math.random()); -- <0; 1000>
 * let nahodaFloor = Math.floor(1000 * Math.random()); -- <0; 999> | <0; 1000)
-*
-*
-*
-*
-*
-*
 *
 */
 
