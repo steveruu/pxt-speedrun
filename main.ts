@@ -1,99 +1,58 @@
-radio.setFrequencyBand(7);
+let actualCode = 12;
+let mySerial = Utility.encodeSerial()
+let actualGroup = 5
+let nextGroup = 0
+let nextCode = 0
+let blok1 = false
+let blok2 = false
+
 radio.setTransmitPower(7);
-
-let groupNum: number;
-
-radio.setGroup(1); //0->255
+radio.setFrequencyBand(7);
 radio.setTransmitSerialNumber(true);
+radio.setGroup(actualGroup);
 
-const mySerialNumber = control.deviceSerialNumber();
-const myEncodedSerialNumber = Utility.encodeSerial();
-
-groupNum = 1;
-function groupIncr() {
-    if (input.buttonIsPressed(Button.A)) {
-        groupNum += 1;
-        whaleysans.showNumber(groupNum);
-        radio.setGroup(groupNum);
-    } else if (input.buttonIsPressed(Button.B)) {
-        groupNum -= 1;
-        whaleysans.showNumber(groupNum);
-        radio.setGroup(groupNum);
-    }
-}
-
-basic.forever(function () {
-    if (input.buttonIsPressed(Button.A)) {
-        radio.sendNumber(2);
-    }
-
-    groupIncr();
-    whaleysans.showNumber(groupNum);
+input.onButtonPressed(Button.A, function () {
+    radio.sendNumber(actualCode);
+    basic.showString("A");
+    basic.clearScreen()
 })
 
-radio.onReceivedNumber(function (receivedNumber: number) {
-    if (receivedNumber == 0) {
-        music.playTone(Note.C4, music.beat(BeatFraction.Quarter));
-        radio.sendNumber(7);
+radio.onReceivedValue(function (key: string, value: number) {
+    if (mySerial === key) {
+        nextCode = value
+        blok1 = true
+        basic.showString("C")
+        basic.clearScreen()
+
     }
+    if (key === "grp" || "grp:") {
+        nextGroup = value
+        blok2 = true
+        basic.showString("G")
+        basic.clearScreen()
 
-    if (receivedNumber == 1) {
-        music.playTone(Note.G4, music.beat(BeatFraction.Quarter));
-        radio.sendNumber(7);
-        radio.sendValue("code", 18);
     }
-
-    // } else if (receivedNumber == 1) {
-    //     music.playTone(Note.D4, music.beat(BeatFraction.Quarter));
-    // } else if (receivedNumber == 2) {
-    //     music.playTone(Note.E4, music.beat(BeatFraction.Quarter));
-    // } else if (receivedNumber == 3) {
-    //         music.playTone(Note.F4, music.beat(BeatFraction.Quarter));
-    // } else if (receivedNumber == 4) {
-    //     music.playTone(Note.G4, music.beat(BeatFraction.Quarter)); }
-
-    radio.onReceivedValue(function (name: string, value: number) {
-        const decodedSerialNumber = Utility.decodeSerial(name); // prijme a dekoduje seriove cislo, pouzito v if() statementu nize
-        console.logValue(name, value);
-
-        if (decodedSerialNumber == mySerialNumber) {
-            /*
-            * new code is in value
-            *
-            */
-        }
-
-        if (name == "grp") {
-            // new groupId recieved
-
-
-            radio.sendValue("code", 18);
-            // music.playTone(Note.G4, music.beat(BeatFraction.Quarter));
-            // radio.setGroup(value)
-            radio.sendValue("code", 18);
-        }
-
-        if (name == "code" && value == value) {
-
-        }
-    })
-
-    const serialRemote = radio.receivedPacket(RadioPacketProperty.SerialNumber);
-    console.logValue(serialRemote + ": ", receivedNumber);
+    if (blok1 && blok2) {
+        actualCode = nextCode
+        actualGroup = nextGroup
+        basic.showString("DONE")
+        basic.clearScreen()
+        blok1 = false
+        blok2 = false
+    }
 
 })
 
 
-/* kazda:
-* syntakticke chyby predevsim -> tutorialy na yt
-* logika - problemy s generatorem nahodnych cisel - <0;1)
-* 
-* let nahodaCeil = Math.ceil(1000 * Math.random()); -- <0; 1000>
-* let nahodaRound = Math.round(1000 * Math.random()); -- <0; 1000>
-* let nahodaFloor = Math.floor(1000 * Math.random()); -- <0; 999> | <0; 1000)
-*
-*/
 
-function myRandom(minimum: number, maximum: number): number {
-    return Math.random();
-}
+input.onButtonPressed(Button.AB, function () {
+    actualCode = 12;
+    mySerial = Utility.encodeSerial()
+    actualGroup = 5
+    nextGroup = 0
+    nextCode = 0
+    blok1 = false
+    blok2 = false
+    basic.showString("AB");
+    basic.clearScreen()
+})
