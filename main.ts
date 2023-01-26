@@ -20,8 +20,8 @@ input.onButtonPressed(Button.A, function ()
     basic.clearScreen();
 })
 
-radio.onReceivedValue(function (name: string, value: number) {
-    if (myEncodedSerial === name) 
+radio.onReceivedValue(function (id: string, value: number) {
+    if (myEncodedSerial === id) 
     {
         nextCode = value;
         groupIsTrue = true;
@@ -30,7 +30,7 @@ radio.onReceivedValue(function (name: string, value: number) {
         basic.clearScreen();
 
     }
-    if (name === "grp") 
+    if (id === "grp") 
     {
         nextGroup = value;
         codeIsTrue = true;
