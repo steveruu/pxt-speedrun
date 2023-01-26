@@ -4,8 +4,8 @@ let actualGroup = 5;
 let nextGroup = 0;
 let nextCode = 0;
 
-let blok1 = false;
-let blok2 = false;
+let codeBool = false;
+let grpBool = false;
 
 radio.setTransmitPower(7);
 radio.setFrequencyBand(7);
@@ -21,30 +21,28 @@ input.onButtonPressed(Button.A, function () {
 radio.onReceivedValue(function (key: string, value: number) {
     if (encodedSerial === key) {
         nextCode = value;
-        blok1 = true;
+        codeBool = true;
         basic.showString("C");
         basic.clearScreen();
-
     }
+    
     if (key === "grp" || "grp:") {
         nextGroup = value;
-        blok2 = true;
+        grpBool = true;
         basic.showString("G");
         basic.clearScreen();
 
     }
-    if (blok1 && blok2) {
+    if (codeBool && grpBool) {
         codeValue = nextCode;
         actualGroup = nextGroup;
         basic.showString("D");
         basic.clearScreen();
-        blok1 = false;
-        blok2 = false;
+        codeBool = false;
+        grpBool = false;
     }
 
 })
-
-
 
 input.onButtonPressed(Button.AB, function () {
     codeValue = 12;
@@ -52,8 +50,8 @@ input.onButtonPressed(Button.AB, function () {
     actualGroup = 5;
     nextGroup = 0;
     nextCode = 0;
-    blok1 = false;
-    blok2 = false;
+    codeBool = false;
+    grpBool = false;
     basic.showString("AB");
     basic.clearScreen();
 })
