@@ -27,6 +27,8 @@ input.onButtonPressed(Button.B, function () {
 })
 
 radio.onReceivedValue(function (key: string, value: number) {
+    console.logValue(key, value);
+
     if (myEncodedSerial === key) {
         nextCode = value;
         codeBool = true;
@@ -62,4 +64,8 @@ input.onButtonPressed(Button.AB, function () {
     grpBool = false;
     basic.showString("AB");
     basic.clearScreen();
+})
+
+basic.forever(function() {
+    
 })
